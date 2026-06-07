@@ -1,0 +1,65 @@
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ mkdir -p formatter_lib formatter_ex_lib solver_lib hello_world_application solver_application
+
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp -r /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/formatter_lib .
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp -r /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/formatter_ex_lib .
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp -r /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/solver_lib .
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ mkdir -p hello_world_application solver_application
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/hello_world_application/hello_world.cpp hello_world_application/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/solver_application/equation.cpp solver_application/solver.cpp
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/solver_lib/solver.h solver_lib/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/formatter_lib/formatter.h formatter_lib/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/tasks/lab03/formatter_ex_lib/formatter_ex.h formatter_ex_lib/
+
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/reports/lab03/formatter_lib/CMakeLists.txt formatter_lib/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/reports/lab03/formatter_ex_lib/CMakeLists.txt formatter_ex_lib/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/reports/lab03/hello_world/CMakeLists.txt hello_world_application/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/reports/lab03/solver_lib/CMakeLists.txt solver_lib/
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cp /mnt/c/Users/danil/ponomarevmiron/workspace/reports/lab03/solver/CMakeLists.txt solver_application/
+
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cat > CMakeLists.txt <<EOF
+cmake_minimum_required(VERSION 3.5)
+project(lab03)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_subdirectory(formatter_lib)
+add_subdirectory(formatter_ex_lib)
+add_subdirectory(solver_lib)
+add_subdirectory(hello_world_application)
+add_subdirectory(solver_application)
+EOF
+
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ sed -i 's/solver_lib.cpp/solver.cpp/' solver_lib/CMakeLists.txt
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ sed -i 's/std::sqrtf/std::sqrt/g' solver_lib/solver.cpp
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ sed -i 's/#include <stdexcept>/#include <cmath>\n#include <stdexcept>/' solver_lib/solver.cpp
+
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cmake -H. -B_build_hw
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03/_build_hw
+
+miron@DaniLaptop:/mnt/c/Users/danil/ponomarevmiron/workspace/projects/lab03$ cmake --build _build_hw
+[ 10%] Building CXX object formatter_lib/CMakeFiles/formatter.dir/formatter.cpp.o
+[ 20%] Linking CXX static library libformatter.a
+[ 20%] Built target formatter
+[ 30%] Building CXX object formatter_ex_lib/CMakeFiles/formatter_ex.dir/formatter_ex.cpp.o
+[ 40%] Linking CXX static library libformatter_ex.a
+[ 40%] Built target formatter_ex
+[ 50%] Building CXX object solver_lib/CMakeFiles/solver_lib.dir/solver.cpp.o
+[ 60%] Linking CXX static library libsolver_lib.a
+[ 60%] Built target solver_lib
+[ 70%] Building CXX object hello_world_application/CMakeFiles/hello_world.dir/hello_world.cpp.o
+[ 80%] Linking CXX executable hello_world
+[ 80%] Built target hello_world
+[ 90%] Building CXX object solver_application/CMakeFiles/solver.dir/solver.cpp.o
+[100%] Linking CXX executable solver
+[100%] Built target solver
